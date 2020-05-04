@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        <script>
+            Plotly.d3.csv('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv', function(err, rows){
+                    function unpack(rows, key) {
+                        return rows.map(function(row) 
+                        { return row[key]; }); }
+                        
+                var x = unpack(rows , 'data');
+                var y = unpack(rows , 'totale_casi');
+                var z = unpack(rows , 'nuovi_positivi');
+                Plotly.newPlot('myDiv', [{
+                    type: 'scatter3d',
+                    mode: 'lines',
+                    x: x,
+                    y: y,
+                    z: z,
+                    opacity: 1,
+                    line: {
+                        width: 6,
+                        color: 1,
+                        reversescale: false
+                    }
+                }], {
+                    height: 1200
+                });
+            });
+        </script>
+        <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+    </body>
+</html>
